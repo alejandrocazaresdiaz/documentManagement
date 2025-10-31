@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class Document {
+public class DocumentRequest {
 	
 	String id;
 	String user;
