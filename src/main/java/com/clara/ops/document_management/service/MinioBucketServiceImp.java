@@ -19,12 +19,16 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.clara.ops.document_management.dto.DocumentFile;
 import com.clara.ops.document_management.dto.UploadFileRequest;
 import com.clara.ops.document_management.exception.DownloadFileExc;
 import com.clara.ops.document_management.exception.GlobalExceptionHandler;
 import com.clara.ops.document_management.exception.UploadFileExc;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
@@ -53,6 +57,8 @@ public class MinioBucketServiceImp implements BucketService{
 
     private final MinioClient minioClient;
     
+    
+    
     public void store(String name, MultipartFile file) throws UploadFileExc {
     	try {
     		log.info("bucket.store: {}",bucketName);
@@ -70,6 +76,42 @@ public class MinioBucketServiceImp implements BucketService{
         	throw new UploadFileExc(uploadSizeExcMsg + file.getOriginalFilename(), e.getCause());//, file);        	
         }
     }
+    
+    
+    public void store(DocumentFile tempDocument)throws  UploadFileExc{
+    	try (InputStream fileStream = Files.newInputStream(tempDocument.getPathFile())) {
+    		log.info("bucket.store: {}",bucketName);
+			
+				minioClient.putObject(PutObjectArgs.builder()
+						.bucket(bucketName)
+						.object("uploads/" + tempDocument.getUniqueId() + "/" + tempDocument.getPathFile().getFileName())
+						.stream(fileStream, tempDocument.getSize(), -1)
+						.contentType(tempDocument.getContentType())
+						.build());
+			
+    	}catch(Exception e) {
+        	log.error(e.getMessage());
+        	throw new UploadFileExc(uploadSizeExcMsg , e.getCause());//, file);        	
+        }    	
+    }
+    
+    public void store(Path tempFile, String uniqueId, String contentType) throws UploadFileExc {
+    	try (InputStream fileStream = Files.newInputStream(tempFile)) {
+    		log.info("bucket.store: {}",bucketName);
+			
+				minioClient.putObject(PutObjectArgs.builder().bucket(bucketName)
+						.object("uploads/" + uniqueId + "/" + tempFile.getFileName())
+						.stream(fileStream, Files.size(tempFile), -1)
+						.contentType(contentType)
+						.build());
+			
+    	}catch(Exception e) {
+        	log.error(e.getMessage());
+        	throw new UploadFileExc(uploadSizeExcMsg , e.getCause());//, file);        	
+        }
+    }
+    
+    
     
     public String generateDownloadUrl(String fileId) throws DownloadFileExc {
     	try {//InvalidKeyException, ErrorResponseException, InsufficientDataException, InternalException, InvalidResponseException, NoSuchAlgorithmException, XmlParserException, ServerException, IllegalArgumentException, IOException {

@@ -14,11 +14,11 @@
 - [x] Asegurar manejo apropiado de excepciones.
 
 ### Upload Endpoint
-- [ ] Implementar endpoint para subir documento PDF + metadata (user, nombre, tags).
-- [ ] Validar tamaño máximo del archivo (50MB/500MB).
+- [X] Implementar endpoint para subir documento PDF + metadata (user, nombre, tags).
+- [X] Validar tamaño máximo del archivo (50MB/500MB).
 - [ ] Subir archivo a MinIO respetando la estructura de buckets.
-- [ ] Almacenar metadata en PostgreSQL.
-- [ ] Manejar la subida de archivos en streaming para limitar uso de memoria (<50MB).
+- [X] Almacenar metadata en PostgreSQL.
+- [X] Manejar la subida de archivos en streaming para limitar uso de memoria (<50MB).
 - [ ] Validar modelo/DTO (campos no nulos).
 - [ ] Capacidad para manejar subidas concurrentes (hasta 10 simultáneas).
 
@@ -28,7 +28,7 @@
 - [ ] No devolver URLs de descarga.
 
 ### Download Endpoint
-- [ ] Implementar endpoint para obtener un enlace de descarga temporal (pre-signed URL de MinIO) basado en el ID del documento.
+- [X] Implementar endpoint para obtener un enlace de descarga temporal (pre-signed URL de MinIO) basado en el ID del documento.
 - [ ] Asegurarse de que el endpoint no exponga rutas directas de MinIO.
 
 ## 4. **Integraciones SQL**
@@ -36,7 +36,7 @@
 - [ ] Crear un script SQL (`docker/init-scripts/schema-init.sql`) para la base de datos con los campos:
   - user, document_name, tags (relación apropiada para múltiples etiquetas), minio_path, file_size, file_type, created_at y campos adicionales necesarios.
 - [ ] Asegurarse de la indexación eficiente (user, document_name, created_at).
-- [ ] Integrar Spring Data JPA para operaciones de base de datos.
+- [X] Integrar Spring Data JPA para operaciones de base de datos.
 
 ## 5. **Testing**
 - [ ] Implementar unit tests (JUnit 5, Mockito, AssertJ).
@@ -48,19 +48,19 @@
 - [ ] Modificar/adaptar docker-compose.yml (bootstrap del stack).
 
 ## 7. **Buenas prácticas**
-- [ ] Seguir las convenciones de commits (Conventional Commits).
-- [ ] Usar patrones Controller-Service-Repository.
-- [ ] Aplicar principios SOLID y clean code.
+- [X] Seguir las convenciones de commits (Conventional Commits).
+- [X] Usar patrones Controller-Service-Repository.
+- [X] Aplicar principios SOLID y clean code.
 - [ ] Documentar (opcionalmente) los endpoints con OpenAPI.
 
 ## 8. **Validación**
-- [ ] Validar endpoints con Postman.
+- [X] Validar endpoints con Postman.
 - [ ] Probar el stack completo con `docker-compose up --build`.
 
 ## 9. **Entrega**
-- [ ] Comentar y explicar cualquier limitación, duda o bloqueo encontrado.
-- [ ] Incluir notas adicionales si aplica.
-- [ ] Subir el repo completo a Github y compartir el enlace.
+- [X] Comentar y explicar cualquier limitación, duda o bloqueo encontrado.
+- [X] Incluir notas adicionales si aplica.
+- [X] Subir el repo completo a Github y compartir el enlace.
 
 ---
 

@@ -33,9 +33,10 @@ public class GlobalExceptionHandler {
 	            .build();
 	}
 	
-	@ExceptionHandler({UploadFileExc.class, DownloadFileExc.class})
+	@ExceptionHandler({UploadFileExc.class, DownloadFileExc.class, FileBuilderExc.class})
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	public HttpErrorRsp resolveMinioExc(final HttpServletRequest req, final Exception ex) {
+		log.error("{}", ex.getClass());
 		return HttpErrorRsp.builder()
 	    		.location(req.getRequestURI())
 	            .details(ex.getMessage())
@@ -43,5 +44,23 @@ public class GlobalExceptionHandler {
 	}
 	
 	
+	@ExceptionHandler({Exception.class})
+	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+	public HttpErrorRsp resolveGeneralExc(final HttpServletRequest req, final Exception ex) {
+		return HttpErrorRsp.builder()
+	    		.location(req.getRequestURI())
+	            .details(ex.getMessage())
+	            .build();
+	}
+	
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public HttpErrorRsp argExc(final HttpServletRequest req, final IllegalArgumentException ex) {
+	    return HttpErrorRsp.builder()
+	    		.location(req.getRequestURI())
+	    		.details(ex.getMessage())
+	            .build();
+	}
 	
 }

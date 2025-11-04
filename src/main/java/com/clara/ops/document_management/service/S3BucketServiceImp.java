@@ -18,12 +18,14 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.clara.ops.document_management.dto.DocumentFile;
 import com.clara.ops.document_management.dto.UploadFileRequest;
 import com.clara.ops.document_management.exception.DownloadFileExc;
 import com.clara.ops.document_management.exception.GlobalExceptionHandler;
 import com.clara.ops.document_management.exception.UploadFileExc;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.TimeUnit;
@@ -57,5 +59,13 @@ public class S3BucketServiceImp implements BucketService{
     	log.error("Not implemented yet");
     	return "Not implemented yet";
     }
+
+	public void store(Path tempFile, String uniqueId, String contentType) throws UploadFileExc {
+		log.error("Not implemented yet");
+	}
+	
+	public void store(DocumentFile tempDocument)throws  UploadFileExc{
+		log.error("Not implemented yet");
+	}
 
 }

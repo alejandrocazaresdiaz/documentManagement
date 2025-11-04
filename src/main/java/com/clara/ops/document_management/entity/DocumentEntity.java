@@ -3,6 +3,9 @@ package com.clara.ops.document_management.entity;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,13 +22,12 @@ public class DocumentEntity {
 
     private String name;
 
+    @JsonProperty("user")
     private String userOwner;
 
     private String type;
 
-//    @Column(length = 1000)
-//    private String descripcion;
-
+    @ElementCollection
     private List<String> tags;
 
     private long size;
