@@ -73,8 +73,6 @@ public class DocumentMgmtApi {
             @RequestParam Long size,
             @RequestParam List<String> sort,
     		@RequestBody DocumentRequest docRef) {
-    	log.warn("Por implementar");
-    	
     	return docPersistenceService.listByCriteria(page, size, sort, docRef);
     }
 
